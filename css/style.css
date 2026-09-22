@@ -1,0 +1,409 @@
+/* HyCo Tablet-Prototyp — Stylesheet
+   CI-Werte übernommen aus 14_Shop_Relaunch_Boutique (Beratung.dc.html, Newsletter-Modul) —
+   siehe ADAPTERGRENZEN.md / SCREENS.md für Belegt/Konzept-Kennzeichnung der Herkunft.
+   Keine externen Fonts/CDNs — alles lokal (assets/fonts/). */
+
+@import url("../assets/fonts/hfk-fonts.css");
+
+:root {
+  --ink: #0e0e0e;
+  --muted: #8b8b85;
+  --line: #e7e5df;
+  --paper: #fbfaf8;
+  --bg: #efede7;
+  --rosa: #eb676d;
+  --rosa-deep: #d9534f;
+  --petrol: #445f57;
+  --salbei: #cedbd6;
+  --dustyblue: #97acbd;
+  --gelb-warn: #c98a1f;
+  --gruen-ok: #3f7a5e;
+  --grotesk: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
+  --serif: "Newsreader", Georgia, serif;
+  --radius: 14px;
+  --radius-pill: 999px;
+  --touch: 58px;
+  --shadow: 0 1px 2px rgba(14, 14, 14, 0.06), 0 6px 20px rgba(14, 14, 14, 0.05);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--grotesk);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1, h2, h3 { font-family: var(--grotesk); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+em, .lede { font-family: var(--serif); font-style: italic; color: var(--rosa-deep); }
+a { color: inherit; }
+button { font-family: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--petrol);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* -- App shell -------------------------------------------------------- */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.testdaten-banner {
+  background: var(--rosa);
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 6px 12px;
+}
+
+.app-header {
+  padding: 10px 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.app-header .titelzeile {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.app-header h1 {
+  font-size: clamp(20px, 2.4vw, 26px);
+  text-transform: lowercase;
+}
+
+.app-header .modul-tag {
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  white-space: nowrap;
+}
+
+/* -- Fortschritt (Stepper) --------------------------------------------- */
+.stepper {
+  display: flex;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+}
+.stepper li {
+  flex: 1 0 auto;
+  min-width: 84px;
+}
+.stepper button {
+  width: 100%;
+  min-height: var(--touch);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-size: 12px;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  color: var(--muted);
+  transition: border-color .15s, color .15s, background .15s;
+}
+.stepper button .nr { font-weight: 700; display: block; font-size: 11px; }
+.stepper li.current button {
+  border-color: var(--petrol);
+  color: var(--ink);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.stepper li.done button { color: var(--gruen-ok); }
+.stepper li.done button .nr::after { content: " ✓"; }
+.stepper button:disabled { cursor: not-allowed; opacity: .55; }
+
+/* -- Screen-Bereich ------------------------------------------------------ */
+main {
+  flex: 1;
+  padding: 6px 16px 130px;
+}
+
+.screen { display: none; animation: fade .15s ease-in; }
+.screen.active { display: block; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.screen-head { margin-bottom: 12px; }
+.screen-head .kicker {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--petrol);
+  font-weight: 700;
+}
+.screen-head h2 {
+  font-size: clamp(22px, 3vw, 30px);
+  margin-top: 4px;
+}
+.screen-head .leitfrage {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--rosa-deep);
+  font-size: 18px;
+  margin-top: 6px;
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.card + .card { margin-top: 10px; }
+
+fieldset { border: 0; padding: 0; margin: 0 0 14px; }
+legend {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 6px;
+  padding: 0;
+}
+legend .optional-tag {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.feld { margin-bottom: 10px; }
+.hinweis { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+input[type=text], input[type=tel], input[type=email], input[type=date], textarea, select {
+  width: 100%;
+  min-height: var(--touch);
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--ink);
+}
+textarea { min-height: 84px; resize: vertical; }
+input:invalid, .feld.invalid input, .feld.invalid textarea, .feld.invalid select {
+  border-color: var(--rosa-deep);
+}
+
+/* -- Kacheln (Tiles) ------------------------------------------------- */
+.kacheln {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.kachel {
+  min-height: var(--touch);
+  padding: 14px 22px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--line);
+  background: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .12s;
+  color: var(--ink);
+}
+.kachel[aria-pressed="true"] {
+  background: var(--petrol);
+  border-color: var(--petrol);
+  color: #fff;
+}
+.kachel:disabled { opacity: .4; cursor: not-allowed; }
+
+/* -- Radiogruppen als Pillen ------------------------------------------ */
+.pillgruppe { display: flex; flex-wrap: wrap; gap: 10px; }
+.pill {
+  min-height: var(--touch);
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--line);
+  background: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.pill[aria-pressed="true"] { background: var(--rosa); border-color: var(--rosa); color: #fff; font-weight: 700; }
+
+/* -- Badges ------------------------------------------------------------ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  letter-spacing: .02em;
+}
+.badge.keine-livedaten { background: #fdecec; color: var(--rosa-deep); }
+.badge.mock { background: #eef1ee; color: var(--petrol); border: 1px dashed var(--petrol); }
+.badge.ki-entwurf { background: #fff4e2; color: var(--gelb-warn); }
+.badge.belegt { background: #e8f3ee; color: var(--gruen-ok); }
+.badge.konzept { background: #eef0fb; color: #4a4fb8; }
+.badge.ungeklaert { background: #f1f1ef; color: var(--muted); }
+
+/* -- Buttons ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--touch);
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+.btn-primary { background: var(--rosa); color: #fff; }
+.btn-primary:disabled { background: #e9c9cb; cursor: not-allowed; }
+.btn-secondary { background: #fff; border-color: var(--line); color: var(--ink); }
+.btn-ghost { background: transparent; color: var(--petrol); border-color: var(--petrol); }
+.btn-danger { background: transparent; color: var(--rosa-deep); border-color: var(--rosa-deep); }
+
+/* -- Next-Step Kacheln (Radio, groß) ------------------------------------ */
+.nextstep-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.nextstep-kachel {
+  text-align: left;
+  min-height: 80px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line);
+  background: #fff;
+  cursor: pointer;
+  font-family: inherit;
+}
+.nextstep-kachel[aria-pressed="true"] { border-color: var(--rosa); background: #fff6f6; box-shadow: 0 0 0 2px var(--rosa) inset; }
+.nextstep-kachel .titel { font-weight: 700; font-size: 17px; display: block; margin-bottom: 2px; }
+.nextstep-kachel .sub { font-size: 13px; color: var(--muted); }
+
+/* -- Kontextpanel (persistenter Beratungskontext, alle Screens) -------- */
+.kontextpanel .kicker {
+  font-size: 12px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--petrol); font-weight: 700;
+}
+.kontextpanel h2 { font-size: clamp(20px, 2.6vw, 26px); margin: 4px 0 12px; }
+.kontextpanel-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px 20px; margin-bottom: 10px;
+}
+.kontextpanel-grid label { font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+.kontextpanel-grid .wert { font-size: 15px; font-weight: 600; }
+.kontextpanel .btn { margin-top: 4px; padding: 10px 18px; min-height: 44px; font-size: 14px; }
+
+/* -- Übergabe-Screen (Tablet weg) ------------------------------------------ */
+.uebergabe-card {
+  text-align: center;
+  padding: 48px 24px;
+}
+.uebergabe-satz {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--rosa-deep);
+  font-size: 26px;
+  margin: 0 0 14px;
+}
+.uebergabe-card .hinweis {
+  max-width: 52ch;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* -- VoiS / Abschluss ----------------------------------------------------- */
+.vois-abschnitt { margin-bottom: 14px; }
+.vois-abschnitt h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-bottom: 4px; }
+.vois-abschnitt .inhalt { font-size: 15px; }
+.vois-abschnitt .aktionen { margin-top: 8px; display: flex; gap: 8px; }
+.vois-abschnitt .aktionen button { font-size: 13px; padding: 10px 18px; min-height: 44px; }
+
+/* -- Footer-Nav ------------------------------------------------------------ */
+.app-footer {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(0deg, var(--bg) 60%, transparent);
+  padding: 10px 16px 16px;
+}
+.app-footer-inner {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: var(--shadow);
+}
+.fehlerliste {
+  font-size: 12px;
+  color: var(--rosa-deep);
+  flex: 1;
+}
+.fehlerliste ul { margin: 2px 0 0; padding-left: 16px; }
+.nav-buttons { display: flex; gap: 8px; }
+
+/* -- Responsive --------------------------------------------------------- */
+@media (max-width: 720px) {
+  .app-header, main, .app-footer { padding-left: 14px; padding-right: 14px; }
+  .stepper li { min-width: 64px; }
+  .stepper .label { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen { animation: none; }
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* -- Druck / PDF-Export (Beratungsprotokoll) --------------------------------
+   "Als PDF exportieren" ruft window.print() auf (kein neues Package) — dieser
+   Block bestimmt, wie das dabei entstehende Dokument aussieht. .print-only ist
+   am Bildschirm unsichtbar, .no-print verschwindet nur beim Drucken. */
+.print-only { display: none; }
+
+@media print {
+  body { background: #fff; color: #000; }
+  .no-print { display: none !important; }
+  .print-only { display: block; }
+  #app { max-width: none; }
+  main { padding: 0; }
+  .card {
+    box-shadow: none;
+    border: none;
+    padding: 0;
+  }
+  #print-kopfzeile {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #000;
+  }
+  #print-kopfzeile h1 { font-size: 20px; margin: 0 0 6px; text-transform: none; }
+  #print-kopfzeile p { font-size: 12px; margin: 2px 0; }
+  .vois-abschnitt { break-inside: avoid; border-bottom: 1px solid #ccc; padding-bottom: 8px; }
+  .vois-abschnitt h4 { color: #000; }
+  .screen-head h2 { font-size: 18px; }
+}

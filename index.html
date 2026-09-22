@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>HyCo Tablet-Prototyp · Beratung Kinderwagen</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="testdaten-banner no-print" role="status">⚠ Prototyp · synthetischer Testfall · keine Live-Daten · kein produktiver Schreibzugriff</div>
+
+<div id="app">
+  <header class="app-header no-print">
+    <div class="titelzeile">
+      <h1>hybrid consulting funnel — beratung <em>kinderwagen</em></h1>
+      <span class="modul-tag">Tablet-Prototyp · lokal · v2 · schlanker Ablauf</span>
+    </div>
+    <nav aria-label="Fortschritt">
+      <ol class="stepper" id="stepper"></ol>
+    </nav>
+  </header>
+
+  <div class="card kontextpanel no-print" id="kontextpanel" aria-label="Beratungskontext">
+    <div class="kicker">Testberatung</div>
+    <h2 id="kontext-kunde-name">—</h2>
+    <div class="kontextpanel-grid">
+      <div><label>Termin</label><div class="wert" id="kontext-termin">—</div></div>
+      <div><label>Beratungsweg</label><div class="wert" id="kontext-beratungsweg">—</div></div>
+      <div><label>Beratung</label><div class="wert" id="kontext-thema">—</div></div>
+      <div><label>Beratungsperson</label><div class="wert" id="kontext-beratungsperson">—</div></div>
+    </div>
+    <p class="hinweis">Das Kundengespräch wird nicht aufgenommen. VoiS verwendet ausschließlich den Endkommentar der Beratungsperson.</p>
+    <p class="hinweis" id="kontext-speicherstatus">—</p>
+    <button type="button" class="btn btn-ghost" id="kontext-reset-btn">Testfall zurücksetzen</button>
+  </div>
+
+  <main id="hauptbereich">
+
+    <!-- Screen 1 — Beratung öffnen -->
+    <section class="screen" data-screen="1" aria-labelledby="s1-titel">
+      <div class="screen-head">
+        <div class="kicker">Schritt 1 von 6</div>
+        <h2 id="s1-titel">Beratung öffnen</h2>
+      </div>
+
+      <div class="card">
+        <div class="feld">
+          <button type="button" class="btn btn-secondary" id="testfall-laden-btn">Testfall laden (synthetisch)</button>
+          <p class="hinweis">Demo-Vorbefüllung mit erfundenen Werten — jederzeit änderbar. Für ein echtes Beratungsgespräch NICHT antippen.</p>
+        </div>
+
+        <fieldset>
+          <legend>Kunde</legend>
+          <div class="feld">
+            <label for="kunde-name">Kundenname</label>
+            <input type="text" id="kunde-name" autocomplete="off" />
+          </div>
+          <div class="kacheln" role="group" aria-label="Kundenstatus">
+            <button type="button" class="pill" id="btn-kunde-bestaetigt" aria-pressed="false">Richtigen Kunden bestätigen</button>
+            <button type="button" class="pill" id="btn-kunde-suchen" aria-pressed="false">Anderen Kunden suchen</button>
+            <button type="button" class="pill" id="btn-kunde-vorlaeufig" aria-pressed="true">Vorläufigen Kunden anlegen</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Termin</legend>
+          <div class="feld">
+            <label for="termin-beratungsweg">Beratungsweg</label>
+            <select id="termin-beratungsweg">
+              <option value="">— wählen —</option>
+              <option value="store">Im Store</option>
+              <option value="online">Online-Termin</option>
+              <option value="telefon">Telefon</option>
+            </select>
+          </div>
+          <div class="feld">
+            <label>Thema</label>
+            <div class="kacheln" role="group" aria-label="Beratungsthema">
+              <button type="button" class="pill" data-thema="kinderwagen" aria-pressed="true">Kinderwagen</button>
+              <button type="button" class="pill" disabled title="Im Prototyp noch nicht hinterlegt">Erstausstattung</button>
+              <button type="button" class="pill" disabled title="Im Prototyp noch nicht hinterlegt">Kinderzimmer</button>
+              <button type="button" class="pill" disabled title="Im Prototyp noch nicht hinterlegt">Geschenke</button>
+            </div>
+          </div>
+          <div class="feld">
+            <label for="termin-beratungsperson">Beratungsperson (Kürzel)</label>
+            <input type="text" id="termin-beratungsperson" placeholder="z. B. VIC" autocomplete="off" />
+          </div>
+          <div class="feld">
+            <label for="termin-zeitpunkt">Zeitpunkt</label>
+            <input type="text" id="termin-zeitpunkt" placeholder="wird beim Start gesetzt" readonly />
+          </div>
+          <div class="feld">
+            <label for="termin-vorbereitung">Freiwillige Vorbereitung <span class="optional-tag">(optional)</span></label>
+            <textarea id="termin-vorbereitung"></textarea>
+          </div>
+        </fieldset>
+      </div>
+    </section>
+
+    <!-- Screen 2 — Rahmen erfassen (3 sachliche Blöcke) -->
+    <section class="screen" data-screen="2" aria-labelledby="s2-titel">
+      <div class="screen-head">
+        <div class="kicker">Schritt 2 von 6</div>
+        <h2 id="s2-titel">Rahmen erfassen</h2>
+        <p class="leitfrage">Nur objektive, später schwer rekonstruierbare Fakten — kein Interview.</p>
+      </div>
+
+      <div class="card">
+        <fieldset>
+          <legend>1 · Wohn- und Hauptnutzungsumfeld</legend>
+          <p class="hinweis">„Wo leben Sie, und wo werden Sie sich mit dem Kinderwagen hauptsächlich bewegen?“</p>
+          <div class="pillgruppe" id="umfeld-pillen" role="radiogroup" aria-label="Umfeld"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>2 · Zugang, Abstellen, Größenbegrenzungen</legend>
+          <p class="hinweis">„Gibt es bei Eingang, Lift, Stiegen oder Abstellplatz eine echte Größen- oder Zugangsgrenze?“</p>
+          <div class="kacheln" id="begrenzung-kacheln" role="group" aria-label="Zugang/Größenbegrenzung"></div>
+          <div class="kacheln" style="margin-top:8px">
+            <button type="button" class="pill" id="btn-keine-begrenzung" aria-pressed="false">Keine relevante Begrenzung</button>
+          </div>
+          <div class="feld" style="margin-top:12px">
+            <label for="rahmen-begrenzung-mass">Maß, falls bekannt <span class="optional-tag">(optional)</span></label>
+            <input type="text" id="rahmen-begrenzung-mass" placeholder="z. B. Türbreite 68 cm" />
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>3 · Haupttransport und Kofferraum</legend>
+          <p class="hinweis">„Wie sind Sie hauptsächlich unterwegs — zu Fuß, mit Öffis, mit dem Auto oder gemischt?“</p>
+          <div class="pillgruppe" id="transport-pillen" role="radiogroup" aria-label="Haupttransport"></div>
+          <div class="feld" id="kofferraum-feld" style="margin-top:12px">
+            <label for="rahmen-kofferraum">Kofferraum-Begrenzung, falls bekannt <span class="optional-tag">(optional)</span></label>
+            <input type="text" id="rahmen-kofferraum" placeholder="z. B. kleiner Kofferraum, Kombi, ..." />
+          </div>
+        </fieldset>
+
+        <div class="feld">
+          <label for="rahmen-ergaenzung">Ergänzung <span class="optional-tag">(optional, falls keine Auswahl passt)</span></label>
+          <textarea id="rahmen-ergaenzung"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 3 — Beratung läuft (Tablet weg) -->
+    <section class="screen" data-screen="3" aria-labelledby="s3-titel">
+      <div class="screen-head">
+        <div class="kicker">Schritt 3 von 6</div>
+        <h2 id="s3-titel">Beratung läuft</h2>
+      </div>
+      <div class="card uebergabe-card">
+        <p class="uebergabe-satz">Rahmen erfasst – Tablet jetzt weglegen und beraten.</p>
+        <p class="hinweis">
+          Erklärung, Produktauswahl, Probefahrt, Falten, Heben, Abwägen — ohne fortlaufende
+          Dateneingabe. Blickkontakt, Produkt und Gespräch stehen im Vordergrund. Das Tablet
+          kommt erst nach der Beratung wieder zum Einsatz, um gemeinsam das Ergebnis
+          festzuhalten.
+        </p>
+      </div>
+    </section>
+
+    <!-- Screen 4 — Ergebnis -->
+    <section class="screen" data-screen="4" aria-labelledby="s4-titel">
+      <div class="screen-head">
+        <div class="kicker">Schritt 4 von 6</div>
+        <h2 id="s4-titel">Ergebnis</h2>
+        <p class="leitfrage">Nur das gemeinsam festgehaltene Ergebnis — kein Gesprächsprotokoll.</p>
+      </div>
+      <div class="card">
+        <fieldset>
+          <legend>Gezeigte / getestete Produkte <span class="optional-tag">(Demo-Sortiment, keine Live-/PROF-Anbindung)</span></legend>
+          <div class="feld">
+            <label for="produkt-a-marke">Produkt 1 — Marke</label>
+            <select id="produkt-a-marke"></select>
+          </div>
+          <div class="feld">
+            <label for="produkt-a-modell">Produkt 1 — Modell</label>
+            <select id="produkt-a-modell"></select>
+          </div>
+          <div class="feld" style="margin-top:12px">
+            <label for="produkt-b-marke">Produkt 2 — Marke</label>
+            <select id="produkt-b-marke"></select>
+          </div>
+          <div class="feld">
+            <label for="produkt-b-modell">Produkt 2 — Modell</label>
+            <select id="produkt-b-modell"></select>
+          </div>
+          <p class="hinweis" style="margin-top:8px">Marken/Modelle: Demo-Sortimentsliste, Stand 2026-09-22 — von HFK zu bestätigen, keine JTL-/PROF-Live-Anbindung.</p>
+          <div class="kacheln" style="margin-top:8px">
+            <button type="button" class="pill" id="keine-produktauswahl" aria-pressed="false">Noch keine konkrete Produktauswahl</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>HFK-Empfehlung <span class="optional-tag">(frei wählbar — auch ein nicht gezeigtes Modell möglich)</span></legend>
+          <div class="feld">
+            <label for="empfehlung-marke">Marke</label>
+            <select id="empfehlung-marke"></select>
+          </div>
+          <div class="feld">
+            <label for="empfehlung-modell">Modell</label>
+            <select id="empfehlung-modell"></select>
+          </div>
+          <div class="feld" style="margin-top:10px">
+            <label><input type="checkbox" id="keine-empfehlung" style="width:auto;min-height:auto;display:inline-block;margin-right:6px" /> Noch keine Empfehlung</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Kundenfavoriten <span class="optional-tag">(optional, mehrere möglich — getrennt von der HFK-Empfehlung)</span></legend>
+          <div class="pillgruppe" id="kundenfavorit-pillen" role="group" aria-label="Kundenfavoriten"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Entscheidungsstand</legend>
+          <div class="pillgruppe" id="entscheidungsstatus-pillen" role="radiogroup" aria-label="Entscheidungsstand"></div>
+        </fieldset>
+
+        <div class="feld">
+          <label for="ergebnis-ergaenzung">Kurze Ergänzung <span class="optional-tag">(optional)</span></label>
+          <textarea id="ergebnis-ergaenzung"></textarea>
+        </div>
+
+        <fieldset>
+          <legend>Nächster Schritt <span class="hinweis">— genau einer</span></legend>
+          <div class="nextstep-grid" id="nextstep-kacheln" role="radiogroup" aria-label="Nächster Schritt"></div>
+          <div id="nextstep-details"></div>
+        </fieldset>
+      </div>
+    </section>
+
+    <!-- Screen 5 — VoiS-Endkommentar -->
+    <section class="screen" data-screen="5" aria-labelledby="s5-titel">
+      <div class="screen-head">
+        <div class="kicker">Schritt 5 von 6</div>
+        <h2 id="s5-titel">VoiS – Endkommentar</h2>
+        <div style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+          <span class="badge keine-livedaten">Kundengespräch nicht aufgenommen</span>
+          <span class="badge mock">Nur dein Endkommentar</span>
+        </div>
+      </div>
+      <div class="card">
+        <p class="hinweis" id="kundengespraech-status"></p>
+        <p class="uebergabe-satz" style="font-size:18px; margin:10px 0 16px;">Nur dein Endkommentar. Das Kundengespräch wird nicht aufgenommen.</p>
+        <div class="feld">
+          <label for="vois-endkommentar">Dein Endkommentar <span class="optional-tag">(Demo-Eingabe — simuliert das Sprechen, keine echte Audioaufnahme in diesem Prototyp)</span></label>
+          <textarea id="vois-endkommentar" rows="8" placeholder="Kurz sprechen/eintragen: Ausgangserwartungen des Kunden · welche Zielkonflikte erklärt wurden · welche Prioritäten sich nach Erklärung/Test als tragfähig erwiesen · akzeptierter Kompromiss · warum HFK das Produkt empfiehlt · Beobachtungen · nächster Schritt."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 6 — VoiS prüfen & bestätigen -->
+    <section class="screen" data-screen="6" aria-labelledby="s6-titel">
+      <div class="screen-head">
+        <div class="kicker no-print">Schritt 6 von 6</div>
+        <h2 id="s6-titel">VoiS prüfen &amp; abschließen</h2>
+        <div class="no-print" style="margin-top:8px; display:flex; gap:6px; flex-wrap:wrap;">
+          <span class="badge ki-entwurf">KI-Entwurf – manuell prüfen</span>
+          <span class="badge mock">Kundengespräch nicht aufgenommen</span>
+          <span class="badge keine-livedaten">Keine Live-Daten</span>
+        </div>
+      </div>
+
+      <div id="print-kopfzeile" class="print-only"></div>
+
+      <div class="card" id="vois-inhalt"></div>
+
+      <div class="card no-print" id="adapter-vorschau" style="margin-top:16px">
+        <h3 style="margin-bottom:10px">Adapter-Vorschau (Systemgrenzen)</h3>
+        <div id="adapter-mami"></div>
+        <div id="adapter-sebo" style="margin-top:10px"></div>
+        <div id="adapter-jtl" style="margin-top:10px"></div>
+        <div id="adapter-pif" style="margin-top:10px"></div>
+      </div>
+
+      <div class="card no-print" style="margin-top:16px">
+        <div class="nav-buttons" style="justify-content:flex-start; flex-wrap:wrap;">
+          <button type="button" class="btn btn-secondary" id="vois-ohne-abschliessen">Ohne VoiS abschließen</button>
+          <button type="button" class="btn btn-primary" id="vois-final-bestaetigen">Final bestätigen</button>
+          <button type="button" class="btn btn-ghost" id="pdf-export-btn">Als PDF exportieren</button>
+          <button type="button" class="btn btn-ghost" id="mailto-protokoll-btn">Protokoll per E-Mail vorbereiten</button>
+        </div>
+        <p class="hinweis" id="vois-abschluss-status" style="margin-top:10px"></p>
+        <p class="hinweis">„Als PDF exportieren" öffnet den Druckdialog deines Browsers — dort „Als PDF sichern" wählen. Enthält Nutzungsprofil, Ergebnis und Endkommentar, keine Adapter-Vorschau.</p>
+        <p class="hinweis">„Protokoll per E-Mail vorbereiten" öffnet nur dein lokales Mailprogramm mit vorbefülltem Entwurf an service@herrundfrauklein.com — nichts wird automatisch versendet. Keine Brevo-/CRM-Anbindung in diesem Prototyp, der Versand muss im geöffneten Mailprogramm selbst bestätigt werden.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="app-footer no-print">
+    <div class="app-footer-inner">
+      <div class="fehlerliste" id="fehlerliste" aria-live="polite"></div>
+      <div class="nav-buttons">
+        <button type="button" class="btn btn-secondary" id="btn-zurueck">Zurück</button>
+        <button type="button" class="btn btn-primary" id="btn-weiter">Weiter</button>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
