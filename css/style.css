@@ -1,23 +1,24 @@
 /* HyCo Tablet-Prototyp — Stylesheet
-   CI-Werte übernommen aus 14_Shop_Relaunch_Boutique (Beratung.dc.html, Newsletter-Modul) —
-   siehe ADAPTERGRENZEN.md / SCREENS.md für Belegt/Konzept-Kennzeichnung der Herkunft.
+   Farben/Typografie/Stepper-Design seit 2026-09-22 1:1 aus dem Vergleichs-
+   Prototyp (chatgpt.site-Demo) übernommen (Stephans ausdrücklicher Wunsch),
+   Werte per getComputedStyle aus der Live-Demo ausgelesen, nicht geschätzt.
+   Vorherige CI-Quelle (14_Shop_Relaunch_Boutique) siehe Git-Historie/Journal.
    Keine externen Fonts/CDNs — alles lokal (assets/fonts/). */
 
 @import url("../assets/fonts/hfk-fonts.css");
 
 :root {
-  --ink: #0e0e0e;
-  --muted: #8b8b85;
-  --line: #e7e5df;
-  --paper: #fbfaf8;
-  --bg: #efede7;
-  --rosa: #eb676d;
-  --rosa-deep: #d9534f;
-  --petrol: #445f57;
-  --salbei: #cedbd6;
-  --dustyblue: #97acbd;
+  --ink: #25231f;
+  --muted: #6e6961;
+  --line: #ded9d1;
+  --paper: #fbfaf7;
+  --bg: #f2ede5;
+  --rosa: #e76f73;
+  --rosa-deep: #b9474e;
+  --petrol: #b9474e;
+  --sage: #dfe8df;
   --gelb-warn: #c98a1f;
-  --gruen-ok: #3f7a5e;
+  --gruen-ok: #35553b;
   --grotesk: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
   --serif: "Newsreader", Georgia, serif;
   --radius: 14px;
@@ -35,7 +36,7 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-h1, h2, h3 { font-family: var(--grotesk); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; letter-spacing: normal; margin: 0; }
 em, .lede { font-family: var(--serif); font-style: italic; color: var(--rosa-deep); }
 a { color: inherit; }
 button { font-family: inherit; }
@@ -94,7 +95,7 @@ button { font-family: inherit; }
   white-space: nowrap;
 }
 
-/* -- Fortschritt (Stepper) --------------------------------------------- */
+/* -- Fortschritt (Stepper) — Kreis-Badges, 1:1 aus dem Vergleichs-Prototyp */
 .stepper {
   display: flex;
   gap: 6px;
@@ -105,31 +106,43 @@ button { font-family: inherit; }
 }
 .stepper li {
   flex: 1 0 auto;
-  min-width: 84px;
+  min-width: 64px;
 }
 .stepper button {
   width: 100%;
   min-height: var(--touch);
-  border: 1px solid var(--line);
-  background: var(--paper);
-  border-radius: 10px;
-  padding: 6px 8px;
-  font-size: 12px;
+  border: none;
+  background: transparent;
+  padding: 4px 2px;
+  font-size: 11px;
   line-height: 1.25;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   color: var(--muted);
-  transition: border-color .15s, color .15s, background .15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: color .15s;
 }
-.stepper button .nr { font-weight: 700; display: block; font-size: 11px; }
-.stepper li.current button {
-  border-color: var(--petrol);
-  color: var(--ink);
-  background: #fff;
-  box-shadow: var(--shadow);
+.stepper button .nr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  min-height: 0;
+  border-radius: 50%;
+  font-weight: 650;
+  font-size: 13px;
+  background: #eeeae4;
+  color: var(--muted);
 }
-.stepper li.done button { color: var(--gruen-ok); }
-.stepper li.done button .nr::after { content: " ✓"; }
+.stepper button .label { font-weight: 600; }
+.stepper li.current button .nr { background: var(--rosa); color: #fff; }
+.stepper li.current button .label { color: var(--ink); }
+.stepper li.done button .nr { background: var(--sage); color: var(--gruen-ok); font-size: 0; }
+.stepper li.done button .nr::before { content: "✓"; font-size: 13px; }
 .stepper button:disabled { cursor: not-allowed; opacity: .55; }
 
 /* -- Screen-Bereich ------------------------------------------------------ */
@@ -146,9 +159,9 @@ main {
 .screen-head .kicker {
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .12em;
   color: var(--petrol);
-  font-weight: 700;
+  font-weight: 800;
 }
 .screen-head h2 {
   font-size: clamp(22px, 3vw, 30px);
@@ -223,9 +236,9 @@ input:invalid, .feld.invalid input, .feld.invalid textarea, .feld.invalid select
   color: var(--ink);
 }
 .kachel[aria-pressed="true"] {
-  background: var(--petrol);
-  border-color: var(--petrol);
-  color: #fff;
+  background: #fff2f1;
+  border-color: #dd898a;
+  color: #7f3439;
 }
 .kachel:disabled { opacity: .4; cursor: not-allowed; }
 
@@ -241,7 +254,7 @@ input:invalid, .feld.invalid input, .feld.invalid textarea, .feld.invalid select
   cursor: pointer;
   color: var(--ink);
 }
-.pill[aria-pressed="true"] { background: var(--rosa); border-color: var(--rosa); color: #fff; font-weight: 700; }
+.pill[aria-pressed="true"] { background: #fff2f1; border-color: #dd898a; color: #7f3439; font-weight: 700; }
 
 /* -- Badges ------------------------------------------------------------ */
 .badge {
@@ -271,7 +284,7 @@ input:invalid, .feld.invalid input, .feld.invalid textarea, .feld.invalid select
   padding: 14px 28px;
   border-radius: var(--radius-pill);
   border: 1.5px solid transparent;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 16px;
   cursor: pointer;
 }
@@ -299,8 +312,8 @@ input:invalid, .feld.invalid input, .feld.invalid textarea, .feld.invalid select
 
 /* -- Kontextpanel (persistenter Beratungskontext, alle Screens) -------- */
 .kontextpanel .kicker {
-  font-size: 12px; text-transform: uppercase; letter-spacing: .08em;
-  color: var(--petrol); font-weight: 700;
+  font-size: 12px; text-transform: uppercase; letter-spacing: .12em;
+  color: var(--petrol); font-weight: 800;
 }
 .kontextpanel h2 { font-size: clamp(20px, 2.6vw, 26px); margin: 4px 0 12px; }
 .kontextpanel-grid {
